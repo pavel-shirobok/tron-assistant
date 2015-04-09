@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="AssistApp" ng-controller="MainCtrl">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body, html {
+            margin : 0;
+            overflow: hidden;
+        }
+
+        .queryImg{
+            position: fixed;
+            -webkit-transition: all linear 0.3s;
+            margin: 10px;
+            left: 0;
+            top: 0;
+            max-width: 300px;
+            max-height: 300px;
+            opacity: 1;
+        }
+
+        .queryImg.ng-hide-add,
+        .queryImg.ng-hide-remove {
+            /* ensure visibility during the transition */
+            display: block !important; /* yes, important */
+        }
+
+        /*.queryImg.ng-hide-add.ng-hide-add-active,
+        .queryImg.ng-hide-remove.ng-hide-remove-active {
+            -webkit-transition: all linear 0.5s;
+
+        }*/
+
+        .queryImg.ng-hide{
+            top: -350px;
+            opacity: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<div id="canvas-container"></div>
+<div id="info">
+    <img class="queryImg" ng-src="{{showImgSrc}}" ng-show="showImgSrc!=undefined"/>
+</div>
+
+<!-- Scripts : -->
+<script src="js/libs/jquery-1.11.2.js"></script>
+<script src="js/libs/three.js"></script>
+<script src="js/libs/tween.js"></script>
+<script src="js/libs/angular.js"></script>
+<script src="js/libs/angular-animate.js"></script>
+<script src="js/libs/annyang.js"></script>
+<script src="js/services/AssetsManager.js"></script>
+<script src="js/services/DialogManager.js"></script>
+
+<script src="js/libs/OBJLoader.js"></script>
+
+<script src="js/assist/ui-background.js"></script>
+<script src="js/assist/ui-assist.js"></script>
+<script src="js/assist/ui-scene.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

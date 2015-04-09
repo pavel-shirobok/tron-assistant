@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        body, html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            background: url(img/background.jpg);
+        }
+
+        .bit {
+            position: fixed;
+            left: calc(50% - 350px / 2);
+            top:  calc(50% - 350px / 2);
+            width: 350px;
+            height: 350px;
+        }
+
+        .bit-blue {
+            background: url(img/bit-normal.png);
+        }
+
+        .bit-red {
+            background: url(img/bit-red.png);
+        }
+
+        .bit-ready {
+            -webkit-animation: rotate 1s infinite;
+        }
+
+        @-webkit-keyframes rotate {
+            0%   { -webkit-transform :  scale(1  , 1   ); }
+            50%  { -webkit-transform :  scale(0.9, 0.9 ); }
+            100% { -webkit-transform :  scale(1  , 1   ); }
+        }
+
+    </style>
+</head>
+<body>
+<script src="js/libs/jquery-1.11.2.js"></script>
+<script src="js/libs/annyang.js"></script>
+<script src="js/dialog.js"></script>
+
+<div id='bit' class="bit bit-blue bit-ready"></div>
+
+<script>
+    /*Dialog(
+            {
+                keyword : 'Сим салабим',
+                commands : [
+                        ["погода", function(question) {}, ]
+                ]
+            }
+    )*/
+</script>
+<script>
+    console.log('start');
+    /*var msg = new SpeechSynthesisUtterance('Start!');
+    */
+    //msg.text = 'Good morning';
+    //msg.text = '<?xml version="1.0"?>Good <emphasis>morning</emphasis>';
+   // msg.lang = 'ru-RU';
+    //msg.voiceURI = 'native';
+
+
+    //
+    /*window.speechSynthesis.speak(msg);*/
+    $(function(){
+        var commands = {
+            'синяя херня': function() {
+                var msg = new SpeechSynthesisUtterance('I\'m here captain!');
+                //msg.lang = 'ru-RU';
+                var voices = speechSynthesis.getVoices();
+                msg.voice = voices[voices.length - 1];
+                $('#bit').addClass('bit-red').removeClass('bit-blue');
+                msg.onend = function() {
+                    $('#bit').removeClass('bit-red').addClass('bit-blue');
+                }
+                window.speechSynthesis.speak(msg);
+                //console.log('aa')
+            },
+
+            'каркнул ворон': function() {
+                var msg = new SpeechSynthesisUtterance('Nevermore!');
+                //msg.lang = 'ru-RU';               `
+                var voices = speechSynthesis.getVoices();
+                msg.voice = voices[voices.length - 1];
+                $('#bit').addClass('bit-red').removeClass('bit-blue');
+                msg.onend = function() {
+                    $('#bit').removeClass('bit-red').addClass('bit-blue');
+                }
+                window.speechSynthesis.speak(msg);
+                //console.log('aa')
+            },
+
+            'говна пакет': function() {
+                say('Пидора ответ 1 2 3', function(){
+
+                });
+                /*var msg = new SpeechSynthesisUtterance('Pidora otvet');
+                //msg.lang = 'ru-RU';
+                var voices = speechSynthesis.getVoices();
+                msg.voice = voices[voices.length - 1];
+                $('#bit').addClass('bit-red').removeClass('bit-blue');
+                msg.onend = function() {
+                    $('#bit').removeClass('bit-red').addClass('bit-blue');
+                }
+                window.speechSynthesis.speak(msg);*/
+                //console.log('aa')
+            },
+        };
+
+        // Add our commands to annyang
+        annyang.addCommands(commands);
+        annyang.debug(true);
+        // Start listening.
+        annyang.setLanguage('ru');
+        annyang.start({autoRestart:true, continuous : true});
+
+        annyang.addCallback('end', function(){
+            console.log('end');
+        })
+    });
+
+
+    function say(str) {
+        $('body').append(
+                $('<iframe>').attr({
+                    src : "https://translate.google.com/translate_tts?tl=RU&q=" + str
+                }).css({
+                    'display' : 'none'
+                })
+        )
+    }
+
+    //console.log(commands);
+</script>
+
+<!--<iframe src="https://translate.google.com/translate_tts?tl=RU&q=Добрый  День Уважаемые Директора,   как ваше душевное настроение   чем могу быть полезна" width="0" height="0" border="0"></iframe>-->
+</body>
+</html>
